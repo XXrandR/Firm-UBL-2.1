@@ -1,27 +1,32 @@
 package com.business;
 
-import org.apache.xml.security.c14n.Canonicalizer;
-import java.io.ByteArrayOutputStream;
+import javax.xml.crypto.dsig.Reference;
+import javax.xml.crypto.dsig.SignatureMethod;
+import javax.xml.crypto.dsig.SignedInfo;
 import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.StringWriter;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.security.PrivateKey;
-import java.security.Signature;
 import java.security.cert.X509Certificate;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.HashSet;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.Properties;
-import java.util.Set;
+import javax.xml.XMLConstants;
+import javax.xml.crypto.dsig.CanonicalizationMethod;
+import javax.xml.crypto.dsig.DigestMethod;
+import javax.xml.crypto.dsig.Transform;
+import javax.xml.crypto.dsig.XMLSignature;
+import javax.xml.crypto.dsig.XMLSignatureFactory;
+import javax.xml.crypto.dsig.dom.DOMSignContext;
+import javax.xml.crypto.dsig.keyinfo.KeyInfo;
+import javax.xml.crypto.dsig.keyinfo.KeyInfoFactory;
+import javax.xml.crypto.dsig.keyinfo.X509Data;
+import javax.xml.crypto.dsig.spec.C14NMethodParameterSpec;
+import javax.xml.crypto.dsig.spec.TransformParameterSpec;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -33,18 +38,18 @@ import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import lombok.extern.slf4j.Slf4j;
-import com.business.XMLSignatureValidator;
 
 @Slf4j
 public class App {
+
     public static void main(String[] args) {
-        System.out.println("Hello World!");
-		XmlSec xmlSec = new XmlSec();
-		xmlSec.generateDocument();
+        log.info("Hello World!");
+        XmlSec xmlSec = new XmlSec();
+        xmlSec.generateDocument();
     }
+
 }
 
 @Slf4j
@@ -53,12 +58,14 @@ class XmlSec {
     private final String locationUnsignedDocuments;
     private final String locationSignedDocuments;
     private final String certificatePath;
-	private static final String fileName = "20515659324-RC-20250204-10.xml";
+    private static final String fileName = "20515659324-RC-20250204-10.xml";
+    private static final String fileName1 = "20515659324-RC-20250204-10.xml"; // for testing purposes of the class
+                                                                              // XMLSignatureValidator
 
     public XmlSec() {
-		locationUnsignedDocuments = "/home/maximus/jhosua/JHOSUA/tests/testfirm/unsigned/";
-		locationSignedDocuments = "/home/maximus/jhosua/JHOSUA/tests/testfirm/signed/";
-		certificatePath = "certificate.pem";
+        locationUnsignedDocuments = "/home/maximus/jhosua/JHOSUA/tests/testfirm/unsigned/";
+        locationSignedDocuments = "/home/maximus/jhosua/JHOSUA/tests/testfirm/signed/";
+        certificatePath = "certificate.pem";
     }
 
     public void generateDocument() {
@@ -79,7 +86,7 @@ class XmlSec {
 
             log.info("Validating Firm...");
             XMLSignatureValidator.validateXMLSignature(
-                    locationSignedDocuments + fileName);
+                    locationSignedDocuments + fileName1);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -88,176 +95,80 @@ class XmlSec {
     private static void saveXml(Document doc, String outputPath) throws Exception {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
-        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer.setOutputProperty(OutputKeys.INDENT, "no");
         DOMSource source = new DOMSource(doc);
         StreamResult result = new StreamResult(new File(outputPath));
         transformer.transform(source, result);
     }
 
-    private static byte[] customCanonicalize(Node node) throws Exception {
-		Canonicalizer canon = Canonicalizer.getInstance(Canonicalizer.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);
-        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-            canon.canonicalizeSubtree(node, outputStream);
-            return outputStream.toByteArray();
-        }
-    }
+    private static final String EXT_NS = "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2";
 
-    // Example implementation for inclusive canonicalization
-    private static String inclusiveCanonicalize(Node node) throws Exception {
-        Canonicalizer canon = Canonicalizer.getInstance(Canonicalizer.ALGO_ID_C14N_OMIT_COMMENTS);
-        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-            canon.canonicalizeSubtree(node, outputStream);
-            return outputStream.toString(StandardCharsets.UTF_8.name());
-        }
-    }
-
-    private static void injectSignature(Document doc, PrivateKey privateKey, X509Certificate certificate)
+    public static void injectSignature(Document doc, PrivateKey privateKey, X509Certificate certificate)
             throws Exception {
 
-        //log.info("Original unsigned XML:\n{}", documentToString(doc));
-        // Namespace URIs
-        String extNs = "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2";
-        String dsNs = "http://www.w3.org/2000/09/xmldsig#";
-
-        // Create the <ext:UBLExtensions> structure
-        Element ublExtensions;
-        // Element ublExtensions = doc.createElementNS(extNs, "ext:UBLExtensions");
-        // NodeList ublExtensionsList = doc.getElementsByTagName("UBLExtensions");
-        List<String> allElementNames = getAllElementNames(doc);
-        NodeList ublExtensionsList = doc.getElementsByTagNameNS(extNs, "UBLExtensions");
-        log.info("All element names in the document: " + allElementNames);
-        if (ublExtensionsList.getLength() > 0) {
-            ublExtensions = (Element) ublExtensionsList.item(0);
-        } else {
-            ublExtensions = doc.createElementNS(extNs, "ext:UBLExtensions");
-            Element root = doc.getDocumentElement();
-            root.insertBefore(ublExtensions, root.getFirstChild());
+        // Locate the ExtensionContent element where the signature should be placed
+        NodeList extensionContentList = doc.getElementsByTagNameNS(
+                "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2", "ExtensionContent");
+        Element nodeSign = null;
+        for (int i = 0; i < extensionContentList.getLength(); i++) {
+            Element element = (Element) extensionContentList.item(i);
+            if (element.getTextContent().trim().isEmpty()) {
+                nodeSign = element;
+                break;
+            }
         }
 
-        NodeList ublExtensionList = doc.getElementsByTagNameNS(extNs, "UBLExtension");
-        Element ublExtension;
-        log.info("All element names in the document: " + allElementNames);
-        if (ublExtensionList.getLength() > 0) {
-            ublExtension = (Element) ublExtensionList.item(0);
-        } else {
-            ublExtension = doc.createElementNS(extNs, "ext:UBLExtension");
-            Element root = doc.getDocumentElement();
-            root.insertBefore(ublExtension, root.getFirstChild());
+        if (nodeSign == null) {
+            nodeSign = doc.getDocumentElement();
         }
 
-        NodeList extensionContentList = doc.getElementsByTagNameNS(extNs, "ExtensionContent");
-        Element extensionContent;
-        log.info("All element names in the document: " + allElementNames);
-        if (extensionContentList.getLength() > 0) {
-            extensionContent = (Element) extensionContentList.item(0);
-        } else {
-            extensionContent = doc.createElementNS(extNs, "ext:UBLExtension");
-            Element root = doc.getDocumentElement();
-            root.insertBefore(ublExtension, root.getFirstChild());
+        // Create XMLSignature object
+        XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
+
+        List<Transform> transforms = Arrays.asList(
+                fac.newTransform(Transform.ENVELOPED,
+                        (TransformParameterSpec) null));
+
+        // Build Reference
+        Reference ref = fac.newReference(
+                "",
+                fac.newDigestMethod(DigestMethod.SHA1, null),
+                transforms,
+                null,
+                null);
+
+        // Create SignedInfo with inclusive canonicalization
+        SignedInfo si = fac.newSignedInfo(
+                fac.newCanonicalizationMethod(
+                        CanonicalizationMethod.INCLUSIVE,
+                        (C14NMethodParameterSpec) null),
+                fac.newSignatureMethod(SignatureMethod.RSA_SHA1, null),
+                Collections.singletonList(ref));
+
+        // Build KeyInfo
+        KeyInfoFactory kif = KeyInfoFactory.getInstance();
+        X509Data xd = kif.newX509Data(Collections.singletonList(certificate));
+        KeyInfo ki = kif.newKeyInfo(Collections.singletonList(xd));
+
+        // Configure context *before* signing
+        DOMSignContext dsc = new DOMSignContext(privateKey, nodeSign);
+        dsc.setDefaultNamespacePrefix("ds");
+
+        // Generate & sign
+        XMLSignature signature = fac.newXMLSignature(si, ki);
+        signature.sign(dsc);
+
+        NodeList signatureList = doc.getElementsByTagNameNS(XMLSignature.XMLNS,
+                "Signature");
+
+        if (signatureList.getLength() > 0) {
+            Element signatureElement = (Element) signatureList.item(0);
+            if (!signatureElement.hasAttribute("Id")) {
+                signatureElement.setAttribute("Id", "signatureFACTURALOPERU");
+                signatureElement.setIdAttribute("Id", true);
+            }
         }
 
-        // Element extensionContent = doc.createElementNS(extNs,
-        // "ext:ExtensionContent");
-        Element signature = doc.createElementNS(dsNs, "ds:Signature");
-        signature.setAttribute("Id", "signatureFACTURALOPERU");
-
-        // Build <ds:SignedInfo>
-        Element signedInfo = doc.createElementNS(dsNs, "ds:SignedInfo");
-        Element canonicalizationMethod = createElementWithAttribute(doc, dsNs, "ds:CanonicalizationMethod", "Algorithm",
-                "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"); // Inclusive for SignedInfo
-        Element signatureMethod = createElementWithAttribute(doc, dsNs, "ds:SignatureMethod", "Algorithm",
-                "http://www.w3.org/2000/09/xmldsig#rsa-sha1");
-
-        // Build <ds:Reference>
-        Element reference = doc.createElementNS(dsNs, "ds:Reference");
-        reference.setAttribute("URI", "");
-        Element transforms = doc.createElementNS(dsNs, "ds:Transforms");
-
-        // Add enveloped-signature transform
-        Element transformEnveloped = createElementWithAttribute(doc, dsNs, "ds:Transform", "Algorithm",
-                "http://www.w3.org/2000/09/xmldsig#enveloped-signature");
-        transforms.appendChild(transformEnveloped);
-
-        Element digestMethod = createElementWithAttribute(doc, dsNs, "ds:DigestMethod", "Algorithm",
-                "http://www.w3.org/2000/09/xmldsig#sha1");
-        Element digestValue = doc.createElementNS(dsNs, "ds:DigestValue");
-
-        // Compute digest with EXCLUSIVE canonicalization (as per transforms)
-        String canonicalXml = inclusiveCanonicalize(doc.getDocumentElement()); // Use exclusive C14N here
-        MessageDigest md = MessageDigest.getInstance("SHA-1");
-        byte[] digestBytes = md.digest(canonicalXml.getBytes(StandardCharsets.UTF_8));
-        digestValue.setTextContent(Base64.getEncoder().encodeToString(digestBytes));
-
-        // Assemble <ds:Reference>
-        reference.appendChild(transforms);
-        reference.appendChild(digestMethod);
-        reference.appendChild(digestValue);
-
-        // Assemble <ds:SignedInfo>
-        signedInfo.appendChild(canonicalizationMethod);
-        signedInfo.appendChild(signatureMethod);
-        signedInfo.appendChild(reference);
-
-        // Compute signature over SignedInfo with INCLUSIVE canonicalization (as per
-        // CanonicalizationMethod)
-        byte[] signedInfoCanonicalized = customCanonicalize(signedInfo); // Use inclusive C14N here
-		String canonicalizedBase64 = Base64.getEncoder().encodeToString(signedInfoCanonicalized);
-		log.info("Canonicalized <SignedInfo> (Base64): {}", canonicalizedBase64);
-        Signature sig = Signature.getInstance("SHA1withRSA");
-        sig.initSign(privateKey);
-        sig.update(signedInfoCanonicalized);
-        byte[] signatureBytes = sig.sign();
-        Element signatureValue = doc.createElementNS(dsNs, "ds:SignatureValue");
-        signatureValue.setTextContent(Base64.getEncoder().encodeToString(signatureBytes));
-        log.debug("Computed SignatureValue (SHA1-RSA): {}", signatureValue.getTextContent());
-
-        // Build <ds:KeyInfo>
-        Element keyInfo = doc.createElementNS(dsNs, "ds:KeyInfo");
-        Element x509Data = doc.createElementNS(dsNs, "ds:X509Data");
-        Element x509Certificate = doc.createElementNS(dsNs, "ds:X509Certificate");
-        x509Certificate.setTextContent(Base64.getEncoder().encodeToString(certificate.getEncoded()));
-        log.debug("Added X509 Certificate (Issuer DN): {}", certificate.getIssuerX500Principal().getName());
-        x509Data.appendChild(x509Certificate);
-        keyInfo.appendChild(x509Data);
-
-        // Assemble the <ds:Signature>
-        signature.appendChild(signedInfo);
-        signature.appendChild(signatureValue);
-        signature.appendChild(keyInfo);
-
-        // Build the full structure and inject
-        extensionContent.appendChild(signature);
-        ublExtension.appendChild(extensionContent);
-        ublExtensions.appendChild(ublExtension);
-        Element root = doc.getDocumentElement();
-        root.insertBefore(ublExtensions, root.getFirstChild());
-        //log.info("Signed XML:\n{}", documentToString(doc));
-
-    }
-
-    private static String canonicalizeSignedInfo(Element signedInfo) throws Exception {
-        Canonicalizer canon = Canonicalizer.getInstance(Canonicalizer.ALGO_ID_C14N_OMIT_COMMENTS);
-        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-            // Canonicalize the <ds:SignedInfo> subtree and write to the stream
-            canon.canonicalizeSubtree(signedInfo, outputStream);
-            // Convert the bytes to a UTF-8 string
-            return outputStream.toString(StandardCharsets.UTF_8.name());
-        }
-    }
-
-    private static String canonicalize(Node node) throws Exception {
-        Canonicalizer canon = Canonicalizer.getInstance(Canonicalizer.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);
-        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-            canon.canonicalizeSubtree(node, outputStream);
-            return outputStream.toString(StandardCharsets.UTF_8.name());
-        }
-    }
-
-    private static Element createElementWithAttribute(Document doc, String ns, String tag, String attrName,
-            String attrValue) {
-        Element element = doc.createElementNS(ns, tag);
-        element.setAttribute(attrName, attrValue);
-        return element;
     }
 
     private static Object[] loadKeyAndCert(String certificatePath) throws Exception {
@@ -293,7 +204,9 @@ class XmlSec {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             factory.setIgnoringElementContentWhitespace(true);
+            factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
             factory.setNamespaceAware(true);
+            // factory.setValidating(true);
             factory.setValidating(true);
             DocumentBuilder builder = factory.newDocumentBuilder();
             return builder.parse(new File(
@@ -301,42 +214,6 @@ class XmlSec {
         } catch (Exception ex) {
             ex.printStackTrace();
             return null;
-        }
-    }
-
-    /* HELPERS FOR LOGGING */
-    private static String documentToString(Document doc) {
-        try {
-            TransformerFactory tf = TransformerFactory.newInstance();
-            Transformer transformer = tf.newTransformer();
-            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-            transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-            StringWriter writer = new StringWriter();
-            transformer.transform(new DOMSource(doc), new StreamResult(writer));
-            return writer.toString();
-        } catch (TransformerException e) {
-            throw new RuntimeException("Failed serializing Document", e);
-        }
-    }
-
-    public static List<String> getAllElementNames(Document doc) {
-        Set<String> elementNames = new HashSet<>();
-        traverseDOM(doc.getDocumentElement(), elementNames);
-        return new ArrayList<>(elementNames);
-    }
-
-    private static void traverseDOM(Node node, Set<String> elementNames) {
-        if (node.getNodeType() == Node.ELEMENT_NODE) {
-            Element element = (Element) node;
-            String tagName = element.getTagName();
-            elementNames.add(tagName);
-        }
-
-        NodeList children = node.getChildNodes();
-        for (int i = 0; i < children.getLength(); i++) {
-            traverseDOM(children.item(i), elementNames);
         }
     }
 

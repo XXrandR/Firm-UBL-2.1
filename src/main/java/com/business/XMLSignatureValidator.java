@@ -3,6 +3,10 @@ package com.business;
 import java.io.FileInputStream;
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
+import java.util.Base64;
+import java.util.List;
+import javax.xml.crypto.dsig.Reference;
+import javax.xml.crypto.dsig.Transform;
 import javax.xml.crypto.dsig.XMLSignature;
 import javax.xml.crypto.dsig.XMLSignatureFactory;
 import javax.xml.crypto.dsig.dom.DOMValidateContext;
@@ -18,10 +22,9 @@ import org.w3c.dom.NodeList;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class XMLSignatureValidator{
+public class XMLSignatureValidator {
 
     public static boolean validateXMLSignature(String xmlFilePath) {
-
         try {
             // Load the XML document
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -40,7 +43,7 @@ public class XMLSignatureValidator{
 
             // Create a DOMValidateContext for validation
             DOMValidateContext validateContext = new DOMValidateContext(new X509KeySelector(), signatureElement);
-			validateContext.setProperty("org.jcp.xml.dsig.secureValidation", Boolean.FALSE);
+            validateContext.setProperty("org.jcp.xml.dsig.secureValidation", Boolean.FALSE);
 
             // Unmarshal the XMLSignature
             XMLSignatureFactory signatureFactory = XMLSignatureFactory.getInstance("DOM");
@@ -51,7 +54,45 @@ public class XMLSignatureValidator{
 
             if (isValid) {
                 log.info("The XML signature is valid.");
+
+                boolean sv = signature.getSignatureValue().validate(validateContext);
+                log.info("Signature validation status: " + sv);
+
+                // Check reference validation status
+                for (Object ref : signature.getSignedInfo().getReferences()) {
+                    boolean refValid = ((javax.xml.crypto.dsig.Reference) ref).validate(validateContext);
+                    log.info("Reference validation status: " + refValid);
+                }
+
+                // Check core validation status
+                boolean coreValidation = signature.getSignatureValue().validate(validateContext);
+                log.info("Core validation status: " + coreValidation);
+
+                // Check each reference
+                List<Reference> references = signature.getSignedInfo().getReferences();
+                for (int i = 0; i < references.size(); i++) {
+                    Reference ref = references.get(i);
+                    boolean refValid = ref.validate(validateContext);
+                    log.info("Reference " + i + " validation status: " + refValid);
+                    if (refValid) {
+                        log.info("Reference " + i + " digest: "
+                                + Base64.getEncoder().encodeToString(ref.getDigestValue()));
+                        log.info("Reference " + i + " calculated digest: "
+                                + Base64.getEncoder().encodeToString(ref.getCalculatedDigestValue()));
+                    }
+                }
+
+                // Check transformations
+                for (int i = 0; i < references.size(); i++) {
+                    Reference ref = references.get(i);
+                    List<Transform> transforms = ref.getTransforms();
+                    for (int j = 0; j < transforms.size(); j++) {
+                        Transform transform = transforms.get(j);
+                        log.info("Reference " + i + ", Transform " + j + ": " + transform.getAlgorithm());
+                    }
+                }
             } else {
+
                 log.info("The XML signature is NOT valid.");
                 // Check the validation status of each reference
                 boolean sv = signature.getSignatureValue().validate(validateContext);
@@ -62,6 +103,35 @@ public class XMLSignatureValidator{
                     boolean refValid = ((javax.xml.crypto.dsig.Reference) ref).validate(validateContext);
                     log.info("Reference validation status: " + refValid);
                 }
+
+                // Check core validation status
+                boolean coreValidation = signature.getSignatureValue().validate(validateContext);
+                log.error("Core validation status: " + coreValidation);
+
+                // Check each reference
+                List<Reference> references = signature.getSignedInfo().getReferences();
+                for (int i = 0; i < references.size(); i++) {
+                    Reference ref = references.get(i);
+                    boolean refValid = ref.validate(validateContext);
+                    log.error("Reference " + i + " validation status: " + refValid);
+                    if (!refValid) {
+                        log.error("Reference " + i + " digest: "
+                                + Base64.getEncoder().encodeToString(ref.getDigestValue()));
+                        log.error("Reference " + i + " calculated digest: "
+                                + Base64.getEncoder().encodeToString(ref.getCalculatedDigestValue()));
+                    }
+                }
+
+                // Check transformations
+                for (int i = 0; i < references.size(); i++) {
+                    Reference ref = references.get(i);
+                    List<Transform> transforms = ref.getTransforms();
+                    for (int j = 0; j < transforms.size(); j++) {
+                        Transform transform = transforms.get(j);
+                        log.info("Reference " + i + ", Transform " + j + ": " + transform.getAlgorithm());
+                    }
+                }
+
             }
 
             return isValid;
@@ -107,4 +177,3 @@ class X509KeySelector extends javax.xml.crypto.KeySelector {
         }
     }
 }
-
