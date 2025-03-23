@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><CreditNote xmlns="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cacadd="urn:e-billing:aggregates" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ccts="urn:un:unece:uncefact:documentation:2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2" xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1" xmlns:udt="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ext:UBLExtensions>
+	<ext:UBLExtension>
+	  <ext:ExtensionContent><ds:Signature Id="palominoFACTURACION"><ds:SignedInfo><ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/><ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><ds:Reference URI=""><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><ds:DigestValue>46BXI9TQgc+aQUJ8+ffp0Gwy/tw=</ds:DigestValue></ds:Reference></ds:SignedInfo><ds:SignatureValue>HNpIp2bvW/6XhHbvT1FUHnPsP42hf5R5DcLPnuEpNxOWTQz1/cSGYZER2iVfQfPfnLyks5YGr70G&#13;
+NsC9SWh3p89CoZJ4CmBjqRXLuwCDbOB23gB+khVLSL5724LiC4DbAl75h+/XOvfV7IAXBh52zCdX&#13;
+fEbfmWJho99y87gFRbU2VEJikOtA9V0x+3SpFhrxiFCxTXxtpl3AwqxIPz7QD8NzpeazgZsbNarG&#13;
+IAZI96RH7BB6Lng1IbFLQdti8VR1IrKuoSXHcNxJhyWjM1aWLY5z92H3e7GqilvDdCht0mrrGTD8&#13;
+KXbja6vODHCQz+rQwJd8SQ26IlG4vCKt76Brqg==</ds:SignatureValue><ds:KeyInfo><ds:X509Data><ds:X509Certificate>MIIF7jCCBNagAwIBAgIKHGJNYQAAAABCyDANBgkqhkiG9w0BAQUFADCBjjELMAkGA1UEBhMCQ0gx&#13;
+EDAOBgNVBAoTB1dJU2VLZXkxIjAgBgNVBAsTGUNvcHlyaWdodCAyMDExIFdJU2VLZXkgU0ExFjAU&#13;
+BgNVBAsTDUludGVybmF0aW9uYWwxMTAvBgNVBAMTKFdJU2VLZXkgQ2VydGlmeUlEIEFkdmFuY2Vk&#13;
+IFNlcnZpY2VzIENBIDIwHhcNMTcwMzA3MjIyNzA4WhcNMjAwMzA2MjIyNzA4WjCCAQExCzAJBgNV&#13;
+BAYTAlBFMQ0wCwYDVQQHEwRMSU1BMUQwQgYDVQQKEztFTVBSRVNBIERFIFRSQU5TUE9SVEVTIEVY&#13;
+UFJFU08gSU5URVJOQUNJT05BTCBQQUxPTUlOTyBTLkEuQzEUMBIGA1UECxMLMjA0MTc5MzEzOTMx&#13;
+ETAPBgNVBAsTCDEwNjY3NDg0MSUwIwYDVQQLExxJZGVudGlkYWQgdmFsaWRhZGEgcG9yIEdSQU1E&#13;
+MR4wHAYDVQQDExVXSUxNQU4gUEFMT01JTk8gT1JUSVoxLTArBgkqhkiG9w0BCQEWHndwYWxvbWlu&#13;
+b0BncnVwb3BhbG9taW5vLmNvbS5wZTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAIgG&#13;
+xUdAOVzRqrqBm5V11PJF180nNioILtrASCimC+fqkjaqJsOlAX2EVpNJlHz50En+k9vRyMGdV+2P&#13;
+4VTOJjIDpjNGGFsHGFe3XJ8o0ce06I1rS3t8Z7kLwPBN+p5fQN3CpHqPYv0/GN4W8A6la/tN4uQt&#13;
+NQsOetsNojF8aozfC6mazVK1cTFqopJ0odNsu8K1RtiA4dEtwmzWLe4U/fCR8DHrGN4REKxq+eOf&#13;
+U8zpTou+wfQbAyFwwG439dFHXv85MDBpg1RHdcOdr4cKlzpuJU4rizlPEso94BSrOujxxC+IxpBw&#13;
+ISGlMwRIh7tVBPnd85wyvKSJqTTOIcpHxb0CAwEAAaOCAdYwggHSMB0GA1UdDgQWBBSaF2trT2X1&#13;
+cr39vtlbTXvOf0AmfjAOBgNVHQ8BAf8EBAMCBPAwHwYDVR0jBBgwFoAU1y8v8wnxViFTHedMLkhE&#13;
+StqG/ZgwPAYDVR0fBDUwMzAxoC+gLYYraHR0cDovL3B1YmxpYy53aXNla2V5LmNvbS9jcmwvd2Np&#13;
+ZGFzY2EyLmNybDBtBggrBgEFBQcBAQRhMF8wNwYIKwYBBQUHMAKGK2h0dHA6Ly9wdWJsaWMud2lz&#13;
+ZWtleS5jb20vY3J0L3djaWRhc2NhMi5jcnQwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLndpc2Vr&#13;
+ZXkuY29tLzA1BgNVHSUELjAsBggrBgEFBQcDAgYKKwYBBAGCNwoDDAYIKwYBBQUHAwQGCisGAQQB&#13;
+gjcUAgIwQwYJKwYBBAGCNxUKBDYwNDAKBggrBgEFBQcDAjAMBgorBgEEAYI3CgMMMAoGCCsGAQUF&#13;
+BwMEMAwGCisGAQQBgjcUAgIwRAYJKoZIhvcNAQkPBDcwNTAOBggqhkiG9w0DAgICAIAwDgYIKoZI&#13;
+hvcNAwQCAgCAMAcGBSsOAwIHMAoGCCqGSIb3DQMHMBEGCWCGSAGG+EIBAQQEAwIAoDANBgkqhkiG&#13;
+9w0BAQUFAAOCAQEAYQc21PZEpfYagG4X0azaPwI/pGYS6Etbr0pNAad5tzsWM4E7EcO+qmGugmVa&#13;
+6VMq4uWLbIMLftQFxVKWKNIJYd5wuGlzHIymcXjoxYRGSf57DsDuct1Tm1Jod05Cvrjx90TjfL11&#13;
+VVJuxEdWbEYF4lCRAYxp5VxXPYM7r97f/z0PK9vB08acRK9mpjaSIsm26ppJp6nfOvBRmqlB3EFZ&#13;
+ISnXKEjrEr1wz08lrdQaT4PFtiLjiprxKqOriHc/K5ZZTj1Lz9U5x0nvNHZ3QxtAKPfQ2AfovamI&#13;
+Vj3iPRYjrytIfCuPeG/YnGlhTgJiZXSQx2m9MlXLnEmXaxN+n5wSSA==</ds:X509Certificate></ds:X509Data></ds:KeyInfo></ds:Signature></ext:ExtensionContent>
+	</ext:UBLExtension>
+  </ext:UBLExtensions>
+    <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+    <cbc:CustomizationID schemeAgencyName="PE:SUNAT">2.0</cbc:CustomizationID>
+    <cbc:ID>F305-0000922</cbc:ID>
+    <cbc:IssueDate>2025-03-08</cbc:IssueDate>
+    <cbc:IssueTime>10:26:15</cbc:IssueTime>
+    <cbc:Note languageLocaleID="1000"><![CDATA[CERO CON 00/100 Soles]]></cbc:Note>
+    <cbc:DocumentCurrencyCode>PEN</cbc:DocumentCurrencyCode>
+    <cac:DiscrepancyResponse>
+        <cbc:ReferenceID>F390-0007425</cbc:ReferenceID>
+        <cbc:ResponseCode listAgencyName="PE:SUNAT" listName="Tipo de nota de credito" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo09">13</cbc:ResponseCode>
+        <cbc:Description><![CDATA[AJUSTES - MONTOS Y/O FECHAS DE PAGO]]></cbc:Description>
+    </cac:DiscrepancyResponse>
+    <cac:BillingReference>
+        <cac:InvoiceDocumentReference>
+            <cbc:ID>F390-0007425</cbc:ID>
+            <cbc:DocumentTypeCode listAgencyName="PE:SUNAT" listName="Tipo de Documento" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01">01</cbc:DocumentTypeCode>
+        </cac:InvoiceDocumentReference>
+    </cac:BillingReference>
+    <cac:Signature>
+        <cbc:ID>IDSignKG</cbc:ID>
+        <cac:SignatoryParty>
+            <cac:PartyIdentification>
+                <cbc:ID>20417931393</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyName>
+                <cbc:Name><![CDATA[EXPRESO INTERNACIONAL PALOMINO SAC]]></cbc:Name>
+            </cac:PartyName>
+        </cac:SignatoryParty>
+        <cac:DigitalSignatureAttachment>
+            <cac:ExternalReference>
+                <cbc:URI>#signatureKG</cbc:URI>
+            </cac:ExternalReference>
+        </cac:DigitalSignatureAttachment>
+    </cac:Signature>
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cac:PartyIdentification>
+                <cbc:ID schemeAgencyName="PE:SUNAT" schemeID="6" schemeName="SUNAT:Identificador de Documento de Identidad" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">20417931393</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyName>
+                <cbc:Name><![CDATA[EXPRESO INTERNACIONAL PALOMINO SAC]]></cbc:Name>
+            </cac:PartyName>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName><![CDATA[EXPRESO INTERNACIONAL PALOMINO SAC]]></cbc:RegistrationName>
+                <cac:RegistrationAddress>
+                    <cbc:AddressTypeCode listAgencyName="PE:SUNAT" listName="Establecimientos anexos">0000</cbc:AddressTypeCode>
+                </cac:RegistrationAddress>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <cac:PartyIdentification>
+                <cbc:ID schemeAgencyName="PE:SUNAT" schemeID="6" schemeName="SUNAT:Identificador de Documento de Identidad" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">20192779333</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName><![CDATA[COMPANIA MINERA ARES S.A.C.]]></cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+    <cac:PaymentTerms>
+        <cbc:ID>FormaPago</cbc:ID>
+        <cbc:PaymentMeansID>Credito</cbc:PaymentMeansID>
+        <cbc:Amount currencyID="PEN">36546.06</cbc:Amount>
+    </cac:PaymentTerms>
+    <cac:PaymentTerms>
+        <cbc:ID>FormaPago</cbc:ID>
+        <cbc:PaymentMeansID>Cuota001</cbc:PaymentMeansID>
+        <cbc:Amount currencyID="PEN">36546.06</cbc:Amount>
+        <cbc:PaymentDueDate>2025-04-14</cbc:PaymentDueDate>
+    </cac:PaymentTerms>
+    <cac:TaxTotal>
+        <cbc:TaxAmount currencyID="PEN">0.00</cbc:TaxAmount>
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="PEN">0.00</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="PEN">0.00</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cac:TaxScheme>
+                    <cbc:ID schemeAgencyName="PE:SUNAT" schemeName="Codigo de tributos" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05">1000</cbc:ID>
+                    <cbc:Name>IGV</cbc:Name>
+                    <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+    <cac:LegalMonetaryTotal>
+        <cbc:PayableAmount currencyID="PEN">0.00</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+    <cac:CreditNoteLine>
+        <cbc:ID>1</cbc:ID>
+        <cbc:CreditedQuantity unitCode="ZZ">1</cbc:CreditedQuantity>
+        <cbc:LineExtensionAmount currencyID="PEN">0.00</cbc:LineExtensionAmount>
+        <cac:PricingReference>
+            <cac:AlternativeConditionPrice>
+                <cbc:PriceAmount currencyID="PEN">0.00</cbc:PriceAmount>
+                <cbc:PriceTypeCode listAgencyName="PE:SUNAT" listName="Tipo de Precio" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo16">01</cbc:PriceTypeCode>
+            </cac:AlternativeConditionPrice>
+        </cac:PricingReference>
+        <cac:TaxTotal>
+            <cbc:TaxAmount currencyID="PEN">0.00</cbc:TaxAmount>
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="PEN">0.00</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="PEN">0.00</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cbc:Percent>18.00</cbc:Percent>
+                    <cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+                    <cac:TaxScheme>
+                        <cbc:ID>1000</cbc:ID>
+                        <cbc:Name>IGV</cbc:Name>
+                        <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        </cac:TaxTotal>
+        <cac:Item>
+            <cbc:Description><![CDATA[/1 TRANSPORTE DE PERSONAL RUTA:AREQUIPA-ARES-AREQUIPA FEB2025./0 /0 ]]></cbc:Description>
+            <cac:SellersItemIdentification>
+                <cbc:ID><![CDATA[1]]></cbc:ID>
+            </cac:SellersItemIdentification>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="PEN">0.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:CreditNoteLine>
+</CreditNote>

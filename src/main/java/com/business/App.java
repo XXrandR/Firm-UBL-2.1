@@ -58,14 +58,14 @@ class XmlSec {
     private final String locationUnsignedDocuments;
     private final String locationSignedDocuments;
     private final String certificatePath;
-    private static final String fileName = "20515659324-RC-20250204-10.xml";
-    private static final String fileName1 = "20515659324-RC-20250204-10.xml"; // for testing purposes of the class
+    // private static final String fileName = "20515659324-RC-20250204-10.xml";
+    private static final String fileName = "20417931393-07-F305-0000923.xml";
+    private static final String fileName1 = "20417931393-07-F305-0000923.xml"; // for testing purposes of the class
                                                                               // XMLSignatureValidator
-
     public XmlSec() {
         locationUnsignedDocuments = "/home/maximus/jhosua/JHOSUA/tests/testfirm/unsigned/";
         locationSignedDocuments = "/home/maximus/jhosua/JHOSUA/tests/testfirm/signed/";
-        certificatePath = "certificate.pem";
+        certificatePath = "exp-palomino.pem";
     }
 
     public void generateDocument() {
@@ -164,7 +164,7 @@ class XmlSec {
         if (signatureList.getLength() > 0) {
             Element signatureElement = (Element) signatureList.item(0);
             if (!signatureElement.hasAttribute("Id")) {
-                signatureElement.setAttribute("Id", "signatureFACTURALOPERU");
+                signatureElement.setAttribute("Id", "palominoFACTURACION");
                 signatureElement.setIdAttribute("Id", true);
             }
         }
@@ -176,7 +176,6 @@ class XmlSec {
         ClassLoader classLoader = XmlSec.class.getClassLoader();
         try (InputStream inputStream = classLoader.getResourceAsStream(certificatePath);
                 PEMParser pemParser = new PEMParser(new InputStreamReader(inputStream))) {
-
             PrivateKey privateKey = null;
             X509Certificate certificate = null;
             Object pemObject;

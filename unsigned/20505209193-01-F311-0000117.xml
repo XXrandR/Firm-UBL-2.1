@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cacadd="urn:e-billing:aggregates" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:cbcadd="urn:e-billing:basics" xmlns:ccts="urn:un:unece:uncefact:documentation:2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2" xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1" xmlns:udt="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <ext:UBLExtensions>
+        <ext:UBLExtension>
+            <ext:ExtensionContent>
+                <sac:AdditionalInformation>
+                    <sac:AdditionalMonetaryTotal>
+                        <cbc:ID>1001</cbc:ID>
+                        <cbc:PayableAmount currencyID="USD">2000.00</cbc:PayableAmount>
+                    </sac:AdditionalMonetaryTotal>
+                    <sac:AdditionalProperty>
+                        <cbc:ID>1000</cbc:ID>
+                        <cbc:Value>DOS  MIL TRESCIENTOS SESENTA CON 00/100 Dolares Americanos</cbc:Value>
+                    </sac:AdditionalProperty>
+                    <cac:OrderReference>
+                        <cbc:ID>0</cbc:ID>
+                    </cac:OrderReference>
+                </sac:AdditionalInformation>
+            </ext:ExtensionContent>
+        </ext:UBLExtension>
+        <ext:UBLExtension>
+            <ext:ExtensionContent> <ds:Signature Id="signatureKG">
+<ds:SignedInfo>
+<ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+<ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+<ds:Reference URI="">
+<ds:Transforms>
+<ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+</ds:Transforms>
+<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+<ds:DigestValue>xFW8DXNkae0xvpRNAxiSUapyVnE=</ds:DigestValue>
+</ds:Reference>
+</ds:SignedInfo>
+<ds:SignatureValue>
+G+pMYgRVh8pKqwsPLGL9XZOUbOf+cuRXAPokybsLc0hLsZgDPRdp3In7djNSmhkJwhJR76EkYLt1
+jTCeiBVaaXvWII6J93lfwVGbBWA4U0iI6nwHMKnceBCd0bX4seHQcQfIy6C+RImop9qg6kXwN9ZO
+zGls/gWgJZ7O4Clyco2IS/uTLRlYIR6SbwxWVHyVql7L9SiUZ2Zxtu7QAHnoIHlTB3mcmoAdjdyE
+Rqr9rm5Chq4++ZTGwmr9zkMD1t82kWVDx/CB7ys12GEKdARRMf4mPfhPFtfWgx+3aNKvDT1OvOtD
+YBLPfMONjcmk2cSXNhyU1+1lKn5MQumLX8Kdyg==
+</ds:SignatureValue>
+<ds:KeyInfo>
+<ds:X509Data>
+<ds:X509Certificate>
+MIIF8jCCBNqgAwIBAgIKHFdmHwAAAABCxzANBgkqhkiG9w0BAQUFADCBjjELMAkGA1UEBhMCQ0gx
+EDAOBgNVBAoTB1dJU2VLZXkxIjAgBgNVBAsTGUNvcHlyaWdodCAyMDExIFdJU2VLZXkgU0ExFjAU
+BgNVBAsTDUludGVybmF0aW9uYWwxMTAvBgNVBAMTKFdJU2VLZXkgQ2VydGlmeUlEIEFkdmFuY2Vk
+IFNlcnZpY2VzIENBIDIwHhcNMTcwMzA3MjIxNTE0WhcNMjAwMzA2MjIxNTE0WjCCAQUxCzAJBgNV
+BAYTAlBFMQ0wCwYDVQQHEwRMSU1BMUgwRgYDVQQKEz9UUkFOU1BPUlRFIFdBUkkgU09DSUVEQUQg
+QU5PTklNQSBDRVJSQURBIFRSQU5TUE9SVEUgV0FSSSBTLkEuQy4xFDASBgNVBAsTCzIwNTA1MjA5
+MTkzMREwDwYDVQQLEwgxMDY2NzQ4NDElMCMGA1UECxMcSWRlbnRpZGFkIHZhbGlkYWRhIHBvciBH
+UkFNRDEeMBwGA1UEAxMVV0lMTUFOIFBBTE9NSU5PIE9SVElaMS0wKwYJKoZIhvcNAQkBFh53cGFs
+b21pbm9AZ3J1cG9wYWxvbWluby5jb20ucGUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
+AQCXkr3dnDFym89N3W/Ltc/hkM1VpTuJj9uIFj/iwFEpqpXiwaK9IhrFaP+J+caiTBwsGA3b21aj
+e21NB8c0hceosYLGi8Ivv+zXPtgHS/5fzocTpgjvyu2GEX6/iQkOKjVINDx27naIYI1mU+7EWmlA
+cAVrxBRxBerPxns+BCKuyBwWNmJXPtP7+KF0G2BABoSqpv4WNCgV97EYtA5q4oZD4/Q7M+zqqTSf
+DAPgtvG9KVUEIMVSjbQ3KMVZSQ3Moj0NCWLnYrdrdYUyE5flZAZBYfUWsUth35yKCo2wNFProa7N
+1vNCVV4rXEQm+u/Sc0Pzp1/wnz8pJoHYKLl+5QsjAgMBAAGjggHWMIIB0jAdBgNVHQ4EFgQU1mTC
+rFY9wvzEWqhc6x7uxI+9NFMwDgYDVR0PAQH/BAQDAgTwMB8GA1UdIwQYMBaAFNcvL/MJ8VYhUx3n
+TC5IRErahv2YMDwGA1UdHwQ1MDMwMaAvoC2GK2h0dHA6Ly9wdWJsaWMud2lzZWtleS5jb20vY3Js
+L3djaWRhc2NhMi5jcmwwbQYIKwYBBQUHAQEEYTBfMDcGCCsGAQUFBzAChitodHRwOi8vcHVibGlj
+Lndpc2VrZXkuY29tL2NydC93Y2lkYXNjYTIuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC53
+aXNla2V5LmNvbS8wNQYDVR0lBC4wLAYIKwYBBQUHAwIGCisGAQQBgjcKAwwGCCsGAQUFBwMEBgor
+BgEEAYI3FAICMEMGCSsGAQQBgjcVCgQ2MDQwCgYIKwYBBQUHAwIwDAYKKwYBBAGCNwoDDDAKBggr
+BgEFBQcDBDAMBgorBgEEAYI3FAICMEQGCSqGSIb3DQEJDwQ3MDUwDgYIKoZIhvcNAwICAgCAMA4G
+CCqGSIb3DQMEAgIAgDAHBgUrDgMCBzAKBggqhkiG9w0DBzARBglghkgBhvhCAQEEBAMCAKAwDQYJ
+KoZIhvcNAQEFBQADggEBAH5wgIP8e1L885yHD1EDfMh2lCnfXd+FFfWfCw9rTByPpx6NnnIGr767
+FW5mhsSZ06xo746utrpgYzEjwrD7Gj/GXWBnVJqNXW4I1HH640Npzf3AGQfJH/IfypsNSp0ASZW+
+QqvhqP0CneMCbZkT2jiGqthzl2WHDpy/cfxC2OKB/579vFE/nBG5R2Y6hVRgTtiC/8sHaGmuUBpW
+BnW0/5FZInEZcmZ7vPBk4PCgeyr8KmhyZmnFBNBG5s1C4FfQ8NEnVGFpJg/FKkFTBDSV0epoudyo
+IsYWDkQ++xnlqj/e5HmSJgJoPed8QajPCMkzTa/Z/YiFA5AN4VmcjMgmbMg=
+</ds:X509Certificate>
+</ds:X509Data>
+<ds:KeyValue>
+<ds:RSAKeyValue>
+<ds:Modulus>
+l5K93ZwxcpvPTd1vy7XP4ZDNVaU7iY/biBY/4sBRKaqV4sGivSIaxWj/ifnGokwcLBgN29tWo3tt
+TQfHNIXHqLGCxovCL7/s1z7YB0v+X86HE6YI78rthhF+v4kJDio1SDQ8du52iGCNZlPuxFppQHAF
+a8QUcQXqz8Z7PgQirsgcFjZiVz7T+/ihdBtgQAaEqqb+FjQoFfexGLQOauKGQ+P0OzPs6qk0nwwD
+4LbxvSlVBCDFUo20NyjFWUkNzKI9DQli52K3a3WFMhOX5WQGQWH1FrFLYd+cigqNsDRT66Guzdbz
+QlVeK1xEJvrv0nND86df8J8/KSaB2Ci5fuULIw==
+</ds:Modulus>
+<ds:Exponent>AQAB</ds:Exponent>
+</ds:RSAKeyValue>
+</ds:KeyValue>
+</ds:KeyInfo>
+</ds:Signature></ext:ExtensionContent>
+        </ext:UBLExtension>
+    </ext:UBLExtensions>
+    <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+    <cbc:CustomizationID>2.0</cbc:CustomizationID>
+    <cbc:ProfileID schemeAgencyName="PE:SUNAT" schemeID="6" schemeName="SUNAT:Identificador de Tipo de Operación" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo17">1001</cbc:ProfileID>
+    <cbc:ID>F311-0000117</cbc:ID>
+    <cbc:IssueDate>2025-03-07</cbc:IssueDate>
+    <cbc:IssueTime>18:10:31</cbc:IssueTime>
+    <cbc:InvoiceTypeCode listID="1001">01</cbc:InvoiceTypeCode>
+    <cbc:Note languageLocaleID="1000"><![CDATA[DOS  MIL TRESCIENTOS SESENTA CON 00/100 Dolares Americanos]]></cbc:Note>
+    <cbc:Note languageLocaleID="2006"><![CDATA[Operación sujeta a detracción]]></cbc:Note>
+    <cbc:DocumentCurrencyCode>USD</cbc:DocumentCurrencyCode>
+    <cac:Signature>
+        <cbc:ID>IDSignKG</cbc:ID>
+        <cac:SignatoryParty>
+            <cac:PartyIdentification>
+                <cbc:ID>20505209193</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyName>
+                <cbc:Name><![CDATA[TRANSPORTE WARI SAC]]></cbc:Name>
+            </cac:PartyName>
+        </cac:SignatoryParty>
+        <cac:DigitalSignatureAttachment>
+            <cac:ExternalReference>
+                <cbc:URI>#signatureKG</cbc:URI>
+            </cac:ExternalReference>
+        </cac:DigitalSignatureAttachment>
+    </cac:Signature>
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cac:PartyIdentification>
+                <cbc:ID schemeAgencyName="PE:SUNAT" schemeID="6" schemeName="Documento de Identidad" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">20505209193</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyName>
+                <cbc:Name><![CDATA[TRANSPORTE WARI SAC]]></cbc:Name>
+            </cac:PartyName>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>TRANSPORTE WARI SAC</cbc:RegistrationName>
+                <cac:RegistrationAddress>
+                    <cbc:AddressTypeCode>0000</cbc:AddressTypeCode>
+                </cac:RegistrationAddress>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <cac:PartyIdentification>
+                <cbc:ID schemeAgencyName="PE:SUNAT" schemeID="6" schemeName="Documento de Identidad" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">20515659324</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName><![CDATA[TURISMO INTERNACIONAL PALOMINO SOCIEDAD ANONIMA CE]]></cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+    <cac:PaymentMeans>
+        <cbc:ID>Detraccion</cbc:ID>
+        <cbc:PaymentMeansCode listAgencyName="PE:SUNAT" listName="Medio de pago" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo59">001</cbc:PaymentMeansCode>
+        <cac:PayeeFinancialAccount>
+            <cbc:ID>00000843512</cbc:ID>
+        </cac:PayeeFinancialAccount>
+    </cac:PaymentMeans>
+    <cac:PaymentTerms>
+        <cbc:ID>Detraccion</cbc:ID>
+        <cbc:PaymentMeansID schemeAgencyName="" schemeName="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo54" schemeURI="">026</cbc:PaymentMeansID>
+        <cbc:PaymentPercent>10.00</cbc:PaymentPercent>
+        <cbc:Amount currencyID="PEN">861.64</cbc:Amount>
+    </cac:PaymentTerms>
+    <cac:PaymentTerms>
+        <cbc:ID>FormaPago</cbc:ID>
+        <cbc:PaymentMeansID>Credito</cbc:PaymentMeansID>
+        <cbc:Amount currencyID="USD">2124.00</cbc:Amount>
+    </cac:PaymentTerms>
+    <cac:PaymentTerms>
+        <cbc:ID>FormaPago</cbc:ID>
+        <cbc:PaymentMeansID>Cuota001</cbc:PaymentMeansID>
+        <cbc:Amount currencyID="USD">2124.00</cbc:Amount>
+        <cbc:PaymentDueDate>2025-04-06</cbc:PaymentDueDate>
+    </cac:PaymentTerms>
+    <cac:TaxTotal>
+        <cbc:TaxAmount currencyID="USD">360.00</cbc:TaxAmount>
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="USD">2000.00</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="USD">360.00</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <cbc:TaxExemptionReasonCode listAgencyName="PE:SUNAT" listName="Afectacion del IGV" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo07">10</cbc:TaxExemptionReasonCode>
+                <cac:TaxScheme>
+                    <cbc:ID>1000</cbc:ID>
+                    <cbc:Name>IGV</cbc:Name>
+                    <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+    <cac:LegalMonetaryTotal>
+        <cbc:LineExtensionAmount currencyID="USD">2000.00</cbc:LineExtensionAmount>
+        <cbc:TaxInclusiveAmount currencyID="USD">2360.00</cbc:TaxInclusiveAmount>
+        <cbc:PayableAmount currencyID="USD">2360.00</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+    <cac:InvoiceLine>
+        <cbc:ID>1</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="NIU">1</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="USD">2000.00</cbc:LineExtensionAmount>
+        <cac:PricingReference>
+            <cac:AlternativeConditionPrice>
+                <cbc:PriceAmount currencyID="USD">2360.00</cbc:PriceAmount>
+                <cbc:PriceTypeCode listAgencyName="PE:SUNAT" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo16">01</cbc:PriceTypeCode>
+            </cac:AlternativeConditionPrice>
+        </cac:PricingReference>
+        <cac:TaxTotal>
+            <cbc:TaxAmount currencyID="USD">360.00</cbc:TaxAmount>
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="USD">2000.00</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="USD">360.00</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cbc:ID schemeAgencyName="United Nations Economic Commission for Europe" schemeID="UN/ECE 5305" schemeName="Tax Category Identifier">S</cbc:ID>
+                    <cbc:Percent>18.00</cbc:Percent>
+                    <cbc:TaxExemptionReasonCode listAgencyName="PE:SUNAT" listName="Afectacion del IGV" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo07">10</cbc:TaxExemptionReasonCode>
+                    <cac:TaxScheme>
+                        <cbc:ID>1000</cbc:ID>
+                        <cbc:Name>IGV</cbc:Name>
+                        <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        </cac:TaxTotal>
+        <cac:Item>
+            <cbc:Description><![CDATA[1 OMNIBUS MARCA MERCEDES BENZ,MODELO O-500 RSD 2436/30,PLACA C0Y958,/0 SERIE 9BM634061FB960846,MOTOR 457916U0994558.]]></cbc:Description>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="USD">2000.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+</Invoice>
